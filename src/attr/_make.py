@@ -38,6 +38,9 @@ if not PY2:
     import typing
 
 
+TYPE_CHECKING = False
+
+
 # This is used at least twice, so cache it here.
 _obj_setattr = object.__setattr__
 _init_converter_pat = "__attr_converter_%s"
@@ -1508,7 +1511,7 @@ def attrs(
 
     def wrap(cls):
 
-        if getattr(cls, "__class__", None) is None:
+        if not TYPE_CHECKING and getattr(cls, "__class__", None) is None:
             raise TypeError("attrs only works with new-style classes.")
 
         is_frozen = frozen or _has_frozen_base_class(cls)
