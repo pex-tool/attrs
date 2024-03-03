@@ -1512,6 +1512,8 @@ def attrs(
     def wrap(cls):
 
         if not TYPE_CHECKING and getattr(cls, "__class__", None) is None:
+            import traceback
+            traceback.print_stack()
             raise TypeError("attrs only works with new-style classes.")
 
         is_frozen = frozen or _has_frozen_base_class(cls)
